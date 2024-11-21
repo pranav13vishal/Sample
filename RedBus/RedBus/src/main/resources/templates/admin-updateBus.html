@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Bus</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            flex-shrink: 0;
+        }
+
+        footer {
+            flex-shrink: 0;
+        }
+
+        main {
+            flex-grow: 1;
+            background-color: #e6f7ff;
+            padding: 20px;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 20px 20px;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .table-container {
+            margin-top: 20px;
+        }
+
+        .update-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .update-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Header -->
+<header class="bg-primary text-white p-3">
+    <div class="container d-flex align-items-center justify-content-between">
+        <a class="d-flex align-items-center text-decoration-none text-white" th:href="@{/index}">
+            <img src="https://s3.rdbuz.com/Images/rdc/rdc-redbus-logo.svg" alt="Bus Logo"
+                 style="height: 40px; margin-right: 10px;">
+            <h1 class="m-0">Bus Booking</h1>
+        </a>
+        <a class="btn btn-light" th:href="@{/logout}">Logout</a>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main>
+    <div class="hero-section">
+        <h1>Update a Bus</h1>
+        <p>Click "Update" to edit bus details.</p>
+    </div>
+
+    <div class="container table-container">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Bus Number</th>
+                <th>Bus Name</th>
+                <th>Source</th>
+                <th>Destination</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="bus : ${buses}">
+                <td th:text="${bus.id}"></td>
+                <td th:text="${bus.busNumber}"></td>
+                <td th:text="${bus.busName}"></td>
+                <td th:text="${bus.source}"></td>
+                <td th:text="${bus.destination}"></td>
+                <td>
+                    <!--                    <a th:href="@{/admin/updateBus/{id}(id=${bus.id})}" class="btn update-btn">Update</a>-->
+                    <button
+                            class="btn btn-warning btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target="#updateBusModal"
+                            onclick="openUpdateModal(this)"
+                            th:attr="data-id=${bus.id}">
+                        Update
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+<!--    <div class="modal fade" id="updateBusModal" tabindex="-1" aria-labelledby="updateBusModalLabel" aria-hidden="true">-->
+<!--        <div class="modal-dialog">-->
+<!--            <div class="modal-content">-->
+<!--                <form method="post" th:action="@{/admin-updateBus}>-->
+<!--                    <div class=" modal-header-->
+<!--                ">-->
+<!--                <h5 class="modal-title" id="updateBusModalLabel">Update Bus</h5>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <input type="hidden" name="id" id="busId">-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="busNumber" class="form-label">Bus Number</label>-->
+<!--                    <input type="text" class="form-control" id="busNumber" name="busNumber" required>-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="busName" class="form-label">Bus Name</label>-->
+<!--                    <input type="text" class="form-control" id="busName" name="busName" required>-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="capacity" class="form-label">Capacity</label>-->
+<!--                    <input type="number" class="form-control" id="capacity" name="capacity" required>-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="source" class="form-label">Source</label>-->
+<!--                    <input type="text" class="form-control" id="source" name="source" required>-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="destination" class="form-label">Destination</label>-->
+<!--                    <input type="text" class="form-control" id="destination" name="destination" required>-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="price" class="form-label">Price</label>-->
+<!--                    <input type="number" class="form-control" id="price" name="price" required>-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="date" class="form-label">Date</label>-->
+<!--                    <input type="date" class="form-control" id="date" name="date" required>-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="time" class="form-label">Time</label>-->
+<!--                    <input type="time" class="form-control" id="time" name="time" required>-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="duration" class="form-label">Duration</label>-->
+<!--                    <input type="number" class="form-control" id="duration" name="duration" required>-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="availableSeats" class="form-label">Available Seats</label>-->
+<!--                    <input type="number" class="form-control" id="availableSeats" name="availableSeats" required>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                <button type="submit" class="btn btn-primary">Save Changes</button>-->
+<!--            </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    </div>-->
+
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-3">
+    &copy; 2024 Bus Booking. All rights reserved.   | <a href="#" class="text-white">Terms and Conditions</a> | <a href="#" class="text-white">Private policies</a>
+</footer>
+
+<!--<script>-->
+<!--    function openUpdateModal(button) {-->
+<!--        const row = button.closest('tr');-->
+<!--        const busId = row.querySelector('td:first-child').innerText;-->
+<!--        const busName = row.querySelector('td:nth-child(2)').innerText;-->
+
+<!--        document.getElementById('busId').value = busId;-->
+<!--        document.getElementById('busName').value = busName;-->
+<!--    }-->
+<!--</script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+</body>
+</html>
+

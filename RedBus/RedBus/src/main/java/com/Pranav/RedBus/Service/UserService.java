@@ -12,4 +12,6 @@ public interface UserService {
      void deleteUser(Long id) ;
      UserDto viewUser(Long id) ;
      List<UserDto> viewAllUsers() ;
+     UserDto findUserByEmail(String email);
+
 }

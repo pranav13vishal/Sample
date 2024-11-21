@@ -17,7 +17,7 @@ public class ReservationDto {
     private String source;
     @NotEmpty
     private String destination;
-    @DateTimeFormat(pattern = "MM-dd-yyyy")
+//    @DateTimeFormat(pattern = "MM-dd-yyyy")
     @NotEmpty
     private String date;
     // user to search

@@ -1,13 +1,14 @@
 package com.Pranav.RedBus.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
@@ -19,25 +20,27 @@ public class BusData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false,unique = true)
-    private String busNo;
+    private String busNumber;
     @Column(nullable = false)
     private String busName;
     @Column(nullable = false)
-    private String capacity;
+    private Long capacity;
     @Column(nullable = false)
     private String source;
     @Column(nullable = false)
     private String destination;
     @Column(nullable = false)
-    private Integer price;
-    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    private Long price;
+//    @DateTimeFormat(pattern = "MM-dd-yyyy")
+//    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false)
     private String date;
-    @DateTimeFormat(pattern = "HH-mm")
+//    @DateTimeFormat(pattern = "HH-mm")
+//    @JsonFormat(pattern = "HH-mm")
     @Column(nullable = false)
     private String time;
     @Column(nullable = false)
-    private Integer duration;
+    private Long duration;
     @Column(nullable = false)
-    private Integer availableSeats;
+    private Long availableSeats;
 }

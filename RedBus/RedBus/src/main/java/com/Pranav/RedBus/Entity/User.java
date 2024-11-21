@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -24,12 +25,13 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String password;
-//    @Column(nullable = false)
-//    private String phoneNumber;
+    @Column(nullable = false)
+    private Long phoneNumber;
     @Column(nullable = false)
     private String role;
     @Column(nullable = false)
     private Integer age;
     @Column(nullable = false)
     private String gender;
+
 }

@@ -5,6 +5,7 @@ import com.Pranav.RedBus.Entity.User;
 import com.Pranav.RedBus.Repository.UserRepo;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,12 +14,20 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService{
 
-    UserRepo userRepo;
-    ModelMapper modelMapper;
+    private UserRepo userRepo;
+    private ModelMapper modelMapper;
+//    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDto addUser(UserDto userDto) {
         User user = modelMapper.map(userDto,User.class);
+        if ("Admin".equals(user.getRole())){
+            user.setRole("ROLE_ADMIN");
+        }
+        else {
+            user.setRole("ROLE_USER");
+        }
+//        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         return modelMapper.map(userRepo.save(user), UserDto.class);
     }
 
@@ -36,8 +45,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDto viewUser(Long id) {
-        User user = userRepo.findById(id).get();
-        return modelMapper.map(user, UserDto.class);
+        return modelMapper.map(userRepo.findById(id), UserDto.class);
     }
 
     @Override
@@ -47,5 +55,14 @@ public class UserServiceImpl implements UserService{
                    modelMapper.map(user, UserDto.class)
                 )
                 .toList();
+    }
+
+    @Override
+    public UserDto findUserByEmail(String email) {
+//        User user = userRepo.findByEmail(email).get();
+//        if (user == null) {
+//            return new UserDto();
+//        }
+        return modelMapper.map(userRepo.findByEmail(email), UserDto.class);
     }
 }

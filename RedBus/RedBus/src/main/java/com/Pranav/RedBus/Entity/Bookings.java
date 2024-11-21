@@ -25,9 +25,7 @@ public class Bookings {
     private String source;
     private String destination;
     private Integer price;
-    @DateTimeFormat(pattern = "MM-dd-yyyy")
     private String date;
-    @DateTimeFormat(pattern = "HH-mm")
     private String time;
     private Integer duration;
     private Integer noOfPerson;
