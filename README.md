@@ -53,7 +53,7 @@
 ## **All Modules** 
 *All modules of our project*
 </br>
-![Er diagram](https://github.com/mayurisamanta/Masai-Travels-RESTful-API/blob/main/Assets/All_Modules.jpg?raw=true)
+![Er diagram](https://github.com/pranav13vishal/Sample/blob/7202389a44e92b6619e204b3602cec779f04bca6/assets/user.png)
 
 ## **Admin Module** 
 *Admin can login by using username (admin) and password (admin1234)*
